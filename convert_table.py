@@ -1,5 +1,4 @@
 import argparse
-import os.path
 import pandas as pd
 import re
 from datetime import datetime as datetime
@@ -68,7 +67,7 @@ def write_source(df_source: pd.DataFrame, df_template: pd.DataFrame, mapping: di
             print(e)
             continue
 
-    return pd.concat([df_template, mapped_df])
+    return mapped_df
 
 
 def prepare_inputs(data_source: pd.DataFrame, data_template: pd.DataFrame, verbose=False) -> dict:
@@ -99,8 +98,8 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    # source and template DataFrames
     try:
+        # source and template DataFrames
         df_source = pd.read_csv(args.source)
         df_template = pd.read_csv(args.template)
     except FileNotFoundError as e:
